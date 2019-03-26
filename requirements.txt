@@ -1,0 +1,14 @@
+bsonrpc
+msgpack-rpc-python
+requests
+tornado<5
+grpcio-tools
+grpcio
+click
+zerorpc
+# trio
+mprpc
+Benchmarker
+ply
+bcrypt
+aiohttp-xmlrpc

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  // Sends another greeting
+  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+  rpc SayGoodMorning (GoodMorningRequest) returns (GoodMorningReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+  message HeaderItem {
+    string name = 1;
+    string value = 2;
+  }
+  repeated HeaderItem headers = 2;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+// The request message containing the user's name.
+message GoodMorningRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message GoodMorningReply {
+  string message = 1;
+}

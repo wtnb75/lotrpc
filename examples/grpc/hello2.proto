@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+// The greeting service definition.
+service hello {
+  // Sends a greeting
+  rpc world (hreq) returns (hres) {}
+}
+
+// The request message containing the user's name.
+message hreq {
+  string hello = 1;
+}
+
+// The response message containing the greetings
+message hres {
+  string result = 1;
+}
