@@ -14,7 +14,7 @@ setup(
     author_email="wtnb75@gmail.com",
     url="https://github.com/wtnb75/lotrpc",
     packages=["lotrpc", "lotrpc.grpc", "lotrpc.json", "lotrpc.mp",
-              "lotrpc.msgpack", "lotrpc.sunrpc", "lotrpc.xdr", "lotrpc.xml", "lotrpc.zero"],
+              "lotrpc.msgpack", "lotrpc.sunrpc", "lotrpc.xml", "lotrpc.zero"],
     license="MIT",
     install_requires=open("requirements.txt").readlines(),
     extras_require={

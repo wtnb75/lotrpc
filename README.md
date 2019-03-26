@@ -22,6 +22,7 @@ protocols:
 
 - python -m venv your-dir
 - cd your-dir
+- ./bin/pip install -r https://github.com/wtnb75/lotrpc/raw/master/requirements.txt
 - ./bin/pip install -e "git+https://github.com/wtnb75/lotrpc.git#egg=lotrpc"
 
 # Usage
