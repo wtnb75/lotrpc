@@ -12,3 +12,4 @@ Benchmarker
 ply
 bcrypt
 aiohttp-xmlrpc
+PyYAML

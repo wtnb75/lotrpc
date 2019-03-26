@@ -14,7 +14,7 @@ setup(
     author_email="wtnb75@gmail.com",
     url="https://github.com/wtnb75/lotrpc",
     packages=["lotrpc", "lotrpc.grpc", "lotrpc.json", "lotrpc.mp",
-              "lotrpc.msgpack", "lotrpc.sunrpc", "lotrpc.xml", "lotrpc.zero"],
+              "lotrpc.msgpack", "lotrpc.sunrpc", "lotrpc.xml", "lotrpc.zero", "lotrpc.aioxml"],
     license="MIT",
     install_requires=open("requirements.txt").readlines(),
     extras_require={
@@ -22,8 +22,8 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "lotrpc-example = lotrpc.clsrv:cli"
-            "lotrpc-rpcgen = lotrpc.rpcgen:cli"
+            "lotrpc-example = lotrpc.clsrv:cli",
+            "lotrpc-rpcgen = lotrpc.rpcgen:cli",
         ],
     },
     classifiers=[
