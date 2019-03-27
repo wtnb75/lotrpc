@@ -30,6 +30,13 @@ class MyDispatcher(lotrpc.SimpleDispatcher):
         self.seq += 1
         return params
 
+    def do_hello_sleep(self, params):
+        ts = time.time()
+        time.sleep(1)
+        res = {"sleep": time.time() - ts, "seq": self.seq}
+        self.seq += 1
+        return res
+
     def do_Greeter_SayHello(self, params):
         log.debug("say hello to %s", params)
         return {"message": "hello {}".format(params.get("name", "anonymous"))}

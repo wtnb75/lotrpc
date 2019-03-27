@@ -11,3 +11,4 @@ from . import grpc
 from . import zero
 from . import mp
 from . import aioxml
+from . import aiojson

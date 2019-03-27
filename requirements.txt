@@ -13,3 +13,4 @@ ply
 bcrypt
 aiohttp-xmlrpc
 PyYAML
+aiohttp-jsonrpc

@@ -4,6 +4,7 @@ syntax = "proto3";
 service hello {
   // Sends a greeting
   rpc world (hreq) returns (hres) {}
+  rpc sleep (hreq) returns (sres) {}
 }
 
 // The request message containing the user's name.
@@ -14,4 +15,9 @@ message hreq {
 // The response message containing the greetings
 message hres {
   string result = 1;
+}
+
+message sres {
+  float sleep = 1;
+  int32 seq = 2;
 }
