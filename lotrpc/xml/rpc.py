@@ -1,6 +1,7 @@
 # XML-RPC Server/Client
 from ..server import ServerIf
 from ..client import ClientIf
+import threading
 import xmlrpc.server
 import xmlrpc.client
 from logging import getLogger
@@ -31,12 +32,15 @@ class Server(ServerIf):
 class Client(ClientIf):
     def __init__(self, addr: str, params: dict = {}):
         super().__init__(addr, params)
-        self.cl = xmlrpc.client.ServerProxy(self.addr)
+        self.tl = threading.local()
 
     def call(self, method: str, params=None):
         log.debug("call %s %s", method, params)
         # cl = xmlrpc.client.ServerProxy(self.addr)
-        fn = self.cl
+        if not hasattr(self.tl, "sp"):
+            log.debug("create proxy")
+            self.tl.sp = xmlrpc.client.ServerProxy(self.addr)
+        fn = self.tl.sp
         for k in method.split("."):
             fn = getattr(fn, k)
         return fn(params)

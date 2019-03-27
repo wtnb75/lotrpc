@@ -1,5 +1,6 @@
 # ZeroRPC server/client
 from logging import getLogger
+import threading
 import functools
 import zerorpc
 
@@ -58,11 +59,14 @@ class Server(ServerIf):
 class Client(ClientIf):
     def __init__(self, addr: str, params: dict = {}):
         super().__init__(addr, params)
-        self.cl = zerorpc.Client()
-        self.cl.connect("tcp://%s:%s" %
-                        (self.addr_parsed.hostname, self.addr_parsed.port))
+        self.tl = threading.local()
 
     def call(self, method: str, params=None):
         log.debug("start client %s:%s", self.addr_parsed.hostname,
                   self.addr_parsed.port)
-        return self.cl(method, params)
+        if not hasattr(self.tl, "cl"):
+            log.debug("create client")
+            self.tl.cl = zerorpc.Client()
+            self.tl.cl.connect("tcp://%s:%s" %
+                               (self.addr_parsed.hostname, self.addr_parsed.port))
+        return self.tl.cl(method, params)

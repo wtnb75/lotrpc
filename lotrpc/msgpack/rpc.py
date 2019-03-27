@@ -3,6 +3,7 @@ from ..server import ServerIf
 from ..client import ClientIf
 import msgpackrpc
 import functools
+import threading
 from logging import getLogger
 from concurrent.futures import ThreadPoolExecutor
 
@@ -61,10 +62,12 @@ class Server(ServerIf):
 class Client(ClientIf):
     def __init__(self, addr: str, params: dict = {}):
         super().__init__(addr, params)
-        self.cl = msgpackrpc.Client(msgpackrpc.Address(
-            self.addr_parsed.hostname, self.addr_parsed.port),
-            pack_encoding='utf-8', unpack_encoding='utf-8')
+        self.tl = threading.local()
 
     def call(self, method: str, params=None):
         log.debug("call %s %s", method, params)
-        return self.cl.call(method, params)
+        if not hasattr(self.tl, "cl"):
+            self.tl.cl = msgpackrpc.Client(msgpackrpc.Address(
+                self.addr_parsed.hostname, self.addr_parsed.port),
+                pack_encoding='utf-8', unpack_encoding='utf-8')
+        return self.tl.cl.call(method, params)

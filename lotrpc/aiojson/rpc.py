@@ -1,7 +1,7 @@
 import asyncio
 import functools
-from aiohttp_xmlrpc.handler import XMLRPCView
-from aiohttp_xmlrpc.client import ServerProxy
+from aiohttp_jsonrpc.handler import JSONRPCView
+from aiohttp_jsonrpc.client import ServerProxy
 from aiohttp import web
 
 from ..client import ClientIf
@@ -9,7 +9,7 @@ from ..server import ServerIf
 
 
 class Server(ServerIf):
-    class MyHandler(XMLRPCView):
+    class MyHandler(JSONRPCView):
         def _d1(self, method, **params):
             return self.d(method, params)
 
@@ -34,7 +34,12 @@ class Client(ClientIf):
         self.loop = asyncio.get_event_loop()
 
     def call(self, method: str, params=None):
-        res = self.cl[method](params)
+        if isinstance(params, dict):
+            res = self.cl[method](**params)
+        elif isinstance(params, (tuple, list)):
+            res = self.cl[method](*params)
+        else:
+            res = self.cl[method](params)
         return self.loop.run_until_complete(res)
 
     def __del__(self):

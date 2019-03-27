@@ -32,23 +32,31 @@ protocols:
 - xmlrpc
   - ./bin/python -m lotrpc.clsrv server xml
   - ./bin/python -m lotrpc.clsrv client xml
+      - ./bin/python -m lotrpc.clsrv benchmark xml --filter 'name!~process'
 - json-rpc
   - ./bin/python -m lotrpc.clsrv server json
   - ./bin/python -m lotrpc.clsrv client json
       - curl -X POST -d '{"method":"hello", "jsonrpc":"2.0", "params":["a","b","c"]}' http://localhost:9999/
+        - ./bin/python -m lotrpc.clsrv benchmark json
 - msgpack-rpc
   - ./bin/python -m lotrpc.clsrv server msgpack
   - ./bin/python -m lotrpc.clsrv client msgpack
+      - ./bin/python -m lotrpc.clsrv benchmark mp --filter 'name!~process'
+      - ./bin/python -m lotrpc.clsrv benchmark msgpack --filter 'name=sync'
 - msgpack-rpc with mprpc
   - ./bin/python -m lotrpc.clsrv server mp
   - ./bin/python -m lotrpc.clsrv client mp
+      - ./bin/python -m lotrpc.clsrv benchmark mp --filter 'name!~process'
+      - ./bin/python -m lotrpc.clsrv benchmark msgpack --filter 'name=sync'
 - grpc
   - ./bin/python -m lotrpc.clsrv server grpc --options '{"source":"examples/grpc/hello.proto"}'
   - ./bin/python -m lotrpc.clsrv client grpc --options '{"source":"examples/grpc/hello.proto"}' --method Greeter.SayHello --params '{"name":"xyzxyz"}'
+      - ./bin/python -m lotrpc.clsrv benchmark grpc --options '{"source":"examples/grpc/hello.proto"}' --method Greeter.SayHello --params '{"name":"xyzxyz"}' --filter 'name!~process'
 - zerorpc
   - ./bin/python -m lotrpc.clsrv server zero
   - ./bin/python -m lotrpc.clsrv client zero
       - ./bin/zerorpc --json tcp://localhost:9999 hello '{"hello":"world"}'
+      - ./bin/python -m lotrpc.clsrv benchmark zero --filter 'name!~process'
 
 ## client usage (CLI)
 
@@ -159,17 +167,23 @@ srv.serve(HelloDispatcher())
 
 - client
     - grpc + process pool
-    - msgpack + thread pool, process pool, asyncio
-    - xml + thread pool, process pool, asyncio
-    - zero + thread pool, process pool, asyncio
+    - msgpack + process pool
+    - xml + process pool
+    - zero + process pool
     - aioxml + thread pool, process pool, asyncio
-- server
+    - aiojson + thread pool, process pool, asyncio
+- client-server
+    - server=mp, client=msgpack
+- server cannot work async
     - aioxml
+    - aiojson
+    - zero
+    - xml
+    - mp
 
 ## TODO
 
 - Work in Progress
-    - aiohttp_xmlrpc
     - Sun RPC
         - (for test) ./bin/python -m lotrpc.rpcgen
 - Golang net/rpc
