@@ -1,3 +1,6 @@
 jupyter
 wheel
 twine
+mypy
+pyflakes
+pycodestyle

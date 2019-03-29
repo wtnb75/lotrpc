@@ -1,0 +1,13 @@
+runner:
+  pyflakes:
+    cmd: pyflakes lotrpc
+    errorformat:
+      - "%f:%l: %m"
+  pycodestyle:
+    cmd: pycodestyle lotrpc
+    errorformat:
+      - "%f:%l:%c: %m"
+  mypy:
+    cmd: mypy --ignore-missing-imports lotrpc
+    errorformat:
+      - "%f:%l: %m"

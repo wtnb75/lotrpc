@@ -1,6 +1,4 @@
 import sys
-import tempfile
-import keyword
 from logging import getLogger
 from jinja2 import Template
 
