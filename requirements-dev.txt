@@ -4,3 +4,5 @@ twine
 mypy
 pyflakes
 pycodestyle
+nose
+coverage
