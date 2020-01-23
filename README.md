@@ -190,3 +190,9 @@ srv.serve(HelloDispatcher())
 - BSON RPC
 - thrift
 - Java RMI
+
+# Links
+
+- [pypi](https://pypi.org/project/lotrpc/)
+- [coverage](https://wtnb75.github.io/lotrpc/)
+- ~~[local pypi repo](https://wtnb75.github.io/lotrpc/dist/)~~
